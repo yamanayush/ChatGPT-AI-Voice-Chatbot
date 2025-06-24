@@ -30,6 +30,7 @@ origins = [
     "http://localhost:5174",
     "http://localhost:4173",
     "http://localhost:3000",
+    "https://chat-gpt-ai-voice-chatbot.vercel.app",
 ]
 
 
