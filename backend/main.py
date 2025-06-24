@@ -98,3 +98,9 @@ async def post_audio(file: UploadFile = File(...)):
 
     # Use for Post: Return output audio
     return StreamingResponse(iterfile(), media_type="application/octet-stream")
+
+
+# Root endpoint
+@app.api_route("/", methods=["GET", "HEAD"])
+async def root():
+    return {"message": "Backend is running!"}
