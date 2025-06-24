@@ -13,28 +13,30 @@ function Title({ setMessages }: Props) {
     setIsResetting(true);
 
     await axios
-      .get("http://localhost:8000/reset", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .get("http://localhost:8000/reset")
       .then((res) => {
         if (res.status == 200) {
           setMessages([]);
+        } else {
+          console.error(
+            "There was an error with the API request to backend."
+          );
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error(err.message);
+      });
 
     setIsResetting(false);
   };
 
   return (
-    <div className="flex justify-between items-center w-full p-4 bg-gray-900 text-white font-bold shadow">
-      <div className="italic">Rachel</div>
+    <div className="flex justify-between items-center w-full p-4 bg-white text-gray-800 shadow-md">
+      <h1 className="font-bold text-2xl">AI Voice Assistant</h1>
       <button
         onClick={resetConversation}
         className={
-          "transition-all duration-300 text-blue-300 hover:text-pink-500 " +
+          "transition-all duration-300 hover:text-gray-400 " +
           (isResetting && "animate-pulse")
         }
       >
@@ -49,7 +51,7 @@ function Title({ setMessages }: Props) {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.664 0M2.985 19.644A8.25 8.25 0 0116.023 9.348"
           />
         </svg>
       </button>

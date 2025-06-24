@@ -1,34 +1,35 @@
-import { ReactMediaRecorder } from "react-media-recorder";
-import RecordIcon from "./RecordIcon";
+import { useMemo } from "react";
 
 type Props = {
-  handleStop: any;
+  sender: string;
+  blobUrl: string;
 };
 
-const RecordMessage = ({ handleStop }: Props) => {
+const RecordMessage = ({ sender, blobUrl }: Props) => {
+  const audio = useMemo(() => {
+    return new Audio(blobUrl);
+  }, [blobUrl]);
+
   return (
-    <ReactMediaRecorder
-      audio
-      onStop={handleStop}
-      render={({ status, startRecording, stopRecording }) => (
-        <div className="mt-2">
-          <button
-            onMouseDown={startRecording}
-            onMouseUp={stopRecording}
-            className="bg-white p-4 rounded-full"
-          >
-            <RecordIcon
-              classText={
-                status == "recording"
-                  ? "animate-pulse text-red-500"
-                  : "text-sky-500"
-              }
-            />
-          </button>
-          <p className="mt-2 text-white font-light">{status}</p>
-        </div>
-      )}
-    />
+    <div
+      className={
+        "flex flex-col " + (sender === "me" ? "items-end" : "items-start")
+      }
+    >
+      <div className="mt-4">
+        <p
+          className={
+            "text-xs " +
+            (sender === "me"
+              ? "text-right mr-2 italic text-gray-500"
+              : "ml-2 italic text-gray-500")
+          }
+        >
+          {sender}
+        </p>
+        <audio src={blobUrl} controls />
+      </div>
+    </div>
   );
 };
 
