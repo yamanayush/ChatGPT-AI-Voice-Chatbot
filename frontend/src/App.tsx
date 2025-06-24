@@ -32,9 +32,6 @@ function App() {
         // send form data to api endpoint
         await axios
           .post("https://chatgpt-ai-voice-chatbot.onrender.com/post-audio", formData, {
-            headers: {
-              "Content-Type": "audio/mpeg",
-            },
             responseType: "arraybuffer", // Set the response type to handle binary data
           })
           .then((res: any) => {
